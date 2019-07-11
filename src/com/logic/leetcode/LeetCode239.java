@@ -16,6 +16,9 @@ public class LeetCode239 {
     }
 
 
+    /**
+     * 每次获取三个，然后在三个里面选
+     */
     private static class Solution {
         public int[] maxSlidingWindow(int[] nums, int k) {
             if (nums == null || nums.length == 0) {
