@@ -28,19 +28,10 @@ public class LeetCode24 {
         p1.next = p2;
         p2.next = p3;
         p3.next = p4;
-//        p4.next = p5;
+        p4.next = p5;
         ListNode listNode = new Solution().swapPairs(p1);
 
-        System.out.println(listNode);
-    }
-
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
+        PrintUtil.printListNode(listNode);
     }
 
     private static class Solution {
