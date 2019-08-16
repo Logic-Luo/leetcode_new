@@ -1,6 +1,7 @@
 package com.logic.leetcode;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * @author logic
@@ -48,6 +49,34 @@ public class LeetCode239 {
                 }
             }
             return max;
+        }
+    }
+
+    private static class Solution2 {
+        public int[] maxSlidingWindow(int[] nums, int k) {
+            if (nums == null || nums.length == 0) {
+                return nums;
+            }
+            int length = nums.length;
+            int[] result = new int[length - k + 1];
+            LinkedList<Integer> dq = new LinkedList<>();
+
+            for (int i = 0; i < length; i++) {
+                if (!dq.isEmpty() && dq.peek() < i - k + 1) {
+                    dq.poll();
+                }
+
+                while (!dq.isEmpty() && nums[i] >= nums[dq.peekLast()]) {
+                    dq.pollLast();
+                }
+
+                dq.offer(i);
+
+                if (i - k + 1 >= 0) {
+                    result[i - k + 1] = nums[dq.peek()];
+                }
+            }
+            return result;
         }
     }
 }
