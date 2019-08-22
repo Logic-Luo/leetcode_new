@@ -49,7 +49,7 @@ public class LeetCoode120 {
         triangle.add(level2);
         triangle.add(level3);
 
-        System.out.println(new Solution().minimumTotal(triangle));
+        System.out.println(new Solution1().minimumTotal(triangle));
     }
 
     /**
@@ -95,8 +95,7 @@ public class LeetCoode120 {
                 List<Integer> bottomLevel = triangle.get(i + 1);
                 List<Integer> currentLevel = triangle.get(i);
 
-                int length = currentLevel.size();
-                for (int j = 0; j < length; j++) {
+                for (int j = 0; j <= i; j++) {
                     if (bottomLevel.get(j) > bottomLevel.get(j + 1)) {
                         currentLevel.set(j, currentLevel.get(j) + bottomLevel.get(j + 1));
                     } else {
