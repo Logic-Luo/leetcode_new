@@ -3,6 +3,7 @@ package com.logic.leetcode;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 /**
  * 239. Sliding Window Maximum
@@ -37,7 +38,7 @@ public class LeetCode239_v1 {
     public static void main(String[] args) {
         int[] num = new int[]{1,3,-1,-3,5,3,6,7};
         int[] num1 = new int[]{1,-1};
-        System.out.println(Arrays.toString(new Solution().maxSlidingWindow(num1, 1)));
+        System.out.println(Arrays.toString(new Solution().maxSlidingWindow(num, 3)));
     }
 
     private static class Solution {
