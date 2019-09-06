@@ -2,6 +2,7 @@ package com.logic.leetcode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * 98. Validate Binary Search Tree
@@ -41,26 +42,29 @@ import java.util.List;
 public class LeetCode98 {
 
     public static void main(String[] args) {
-//        TreeNode node2 = new TreeNode(2);
-//        TreeNode node1 = new TreeNode(1);
-//        TreeNode node3 = new TreeNode(3);
-//        node2.left = node1;
-//        node2.right = node3;
-//        System.out.println(new Solution().isValidBST(node2));
-
-        TreeNode node5 = new TreeNode(5);
+        TreeNode node2 = new TreeNode(2);
         TreeNode node1 = new TreeNode(1);
-        TreeNode node4 = new TreeNode(4);
         TreeNode node3 = new TreeNode(3);
-        TreeNode node6 = new TreeNode(6);
+        node2.left = node1;
+        node2.right = node3;
+        System.out.println(new Solution2().isValidBST(node2));
 
-        node5.left = node1;
-        node5.right = node4;
-        node4.left = node3;
-        node4.right = node6;
-        System.out.println(new Solution().isValidBST(node5));
+//        TreeNode node5 = new TreeNode(5);
+//        TreeNode node1 = new TreeNode(1);
+//        TreeNode node4 = new TreeNode(4);
+//        TreeNode node3 = new TreeNode(3);
+//        TreeNode node6 = new TreeNode(6);
+//
+//        node5.left = node1;
+//        node5.right = node4;
+//        node4.left = node3;
+//        node4.right = node6;
+//        System.out.println(new Solution().isValidBST(node5));
     }
 
+    /**
+     * 先进行中序遍历，
+     */
     private static class Solution {
         public boolean isValidBST(TreeNode root) {
             List<Integer> traverseResult = new ArrayList<>();
@@ -96,6 +100,68 @@ public class LeetCode98 {
                 inOrderTraverse(traverseResult, root.right);
             }
         }
-
     }
+
+    private static class Solution2 {
+        public boolean isValidBST(TreeNode root) {
+            return inOrderTraverse(root, Long.MIN_VALUE, Long.MAX_VALUE);
+        }
+
+        private boolean inOrderTraverse(TreeNode root, Long min, Long max) {
+            if (root == null) {
+                return true;
+            }
+
+            if (root.val <= min || root.val >= max) {
+                return false;
+            }
+
+            return inOrderTraverse(root.left, min, (long) root.val) && inOrderTraverse(root.right, (long) root.val, max);
+        }
+    }
+
+
+    private static class Solution3 {
+        public boolean isValidBST(TreeNode root) {
+            return isValidBST(root, null, null);
+        }
+
+        private boolean isValidBST(TreeNode root, Integer min, Integer max) {
+            if (root == null) {
+                return true;
+            }
+
+            if ((min != null && root.val <= min) || (max != null && root.val >= max)) {
+                return false;
+            }
+
+            return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);
+        }
+    }
+
+    private static class Solution4 {
+        public boolean isValidBST(TreeNode root) {
+            Stack<TreeNode> stack = new Stack<>();
+            double inorder = - Double.MAX_VALUE;
+
+            while (!stack.isEmpty() || root != null) {
+
+                while (root != null) {
+                    stack.push(root);
+                    root = root.left;
+                }
+
+                root = stack.pop();
+
+                if (root.val <= inorder) {
+                    return false;
+                }
+                inorder = root.val;
+                root = root.right;
+            }
+
+            return true;
+        }
+    }
+
 }
